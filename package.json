@@ -7,7 +7,8 @@
     "probar": "node probar-conexion.js",
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "productos": "node crear-productos.js"
   },
   "keywords": [],
   "author": "",

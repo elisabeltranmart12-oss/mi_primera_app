@@ -1,18 +1,19 @@
 :root {
-  --fondo: #f6f7fb;
-  --texto: #1d2433;
-  --suave: #5b6478;
+  --fondo: #faf7f2;
+  --texto: #2a2420;
+  --suave: #6f665e;
   --tarjeta: #ffffff;
-  --ok: #1f9d55;
+  --acento: #b5446e;
   --error: #d64545;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --fondo: #12151c;
-    --texto: #e8ebf2;
-    --suave: #9aa3b5;
-    --tarjeta: #1c212b;
+    --fondo: #16130f;
+    --texto: #f0ebe4;
+    --suave: #a99f94;
+    --tarjeta: #221d18;
+    --acento: #e07ba0;
   }
 }
 
@@ -27,22 +28,60 @@ body {
 }
 
 main {
-  max-width: 640px;
+  max-width: 1040px;
   margin: 0 auto;
-  padding: 48px 16px;
+  padding: 40px 16px 64px;
 }
 
+.cabecera { margin-bottom: 32px; }
 h1 { margin: 0 0 4px; font-size: 2rem; }
-.sub { margin: 0 0 32px; color: var(--suave); }
+.sub { margin: 0; color: var(--suave); }
 
-.tarjeta {
-  background: var(--tarjeta);
-  border-radius: 12px;
-  padding: 20px 24px;
-  border-left: 6px solid var(--suave);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+.categoria { margin-bottom: 40px; }
+.categoria h2 {
+  font-size: 1.35rem;
+  margin: 0 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--acento);
 }
-.tarjeta.ok { border-left-color: var(--ok); }
-.tarjeta.error { border-left-color: var(--error); }
-.tarjeta h2 { margin: 0 0 12px; font-size: 1.2rem; }
-.tarjeta ul { margin: 0; padding-left: 18px; }
+
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.producto {
+  background: var(--tarjeta);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+  display: flex;
+  flex-direction: column;
+}
+
+/* "Foto" provisional: un estampado de lunares con el color del producto. */
+.foto {
+  aspect-ratio: 4 / 3;
+  display: grid;
+  place-items: center;
+  background-color: var(--color);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.55) 18%, transparent 19%);
+  background-size: 22px 22px;
+}
+.foto span { font-size: 3.5rem; filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)); }
+
+.info { padding: 16px 18px 18px; display: flex; flex-direction: column; flex: 1; }
+.info h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.descripcion { margin: 0 0 12px; color: var(--suave); font-size: 0.92rem; flex: 1; }
+.precio { margin: 0; font-size: 1.4rem; font-weight: 700; color: var(--acento); }
+
+.aviso {
+  background: var(--tarjeta);
+  border-left: 6px solid var(--error);
+  border-radius: 12px;
+  padding: 16px 20px;
+}
+.aviso h2 { margin: 0 0 8px; font-size: 1.1rem; }
+
+.pie { margin-top: 24px; color: var(--suave); font-size: 0.85rem; text-align: center; }
