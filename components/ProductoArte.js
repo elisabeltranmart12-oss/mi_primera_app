@@ -1,206 +1,211 @@
 import { useId } from 'react';
 
 // Ilustración de un producto cuando todavía no tiene foto.
-// Estilo "canastilla": tela acolchada con pespuntes, vivo crema, lazo y herrajes dorados.
-// La forma depende de la categoría (neceser o bolsa de carro) y la tela del estampado.
+// Estilo "block print": algodón estampado con pequeñas flores repetidas,
+// acolchado en canales verticales y ribete de rayitas verdes en costuras y cremallera.
+// La forma depende de la categoría (neceser o bolsa de carro) y la tela del estampado:
+//   flores  → claveles sueltos en filas alternas sobre fondo claro
+//   lunares → florecitas menudas muy juntas sobre fondo de color
+//   rayas   → franjas de enredadera floral alternando con franjas de color
 
-const CREMA = '#fffaf3';
-const CREMA_SOMBRA = '#eadfce';
-const ORO = '#c9a25a';
-const ORO_LUZ = '#e9cf8f';
+const VERDE_HOJA = '#6f9a4f';
+const VERDE_RIBETE = '#9cc46a';
+const CRUDO = '#fbf7ef';
+const ROSA_FLOR = '#d0506a';
 
-function Flor({ x, y, r, petalo, centro }) {
-  const d = r * 0.95;
+// Mezcla dos colores hex (t = 0 → a, t = 1 → b).
+function mezclar(a, b, t) {
+  const p = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const [x, y] = [p(a), p(b)];
+  return `#${x.map((v, i) => Math.round(v + (y[i] - v) * t).toString(16).padStart(2, '0')).join('')}`;
+}
+
+// Clavel con tallo y dos hojas (motivo "buti").
+function Clavel({ x, y, petalo, interior }) {
+  const petalos = [0, 60, 120, 180, 240, 300].map((a) => {
+    const r = (a * Math.PI) / 180;
+    return <circle key={a} cx={x + 2.5 * Math.cos(r)} cy={y + 2.5 * Math.sin(r)} r="2.3" fill={petalo} />;
+  });
   return (
     <g>
-      {[0, 72, 144, 216, 288].map((a) => (
-        <circle
-          key={a}
-          cx={x + d * Math.cos((a * Math.PI) / 180)}
-          cy={y + d * Math.sin((a * Math.PI) / 180)}
-          r={r}
-          fill={petalo}
-        />
-      ))}
-      <circle cx={x} cy={y} r={r * 0.75} fill={centro} />
+      <path d={`M${x} ${y + 3} V${y + 13}`} stroke={VERDE_HOJA} strokeWidth="1" />
+      <ellipse cx={x - 3.2} cy={y + 9} rx="3.4" ry="1.5" fill={VERDE_HOJA} transform={`rotate(-35 ${x - 3.2} ${y + 9})`} />
+      <ellipse cx={x + 3.2} cy={y + 10.5} rx="3.4" ry="1.5" fill={VERDE_HOJA} transform={`rotate(35 ${x + 3.2} ${y + 10.5})`} />
+      {petalos}
+      <circle cx={x} cy={y} r="2.2" fill={interior} />
+      <circle cx={x} cy={y} r=".8" fill={CRUDO} />
     </g>
   );
 }
 
-// Tela de fondo según el estampado.
-function Tela({ id, tipo, color }) {
+// Florecita de cuatro pétalos.
+function Florecita({ x, y, color, r = 1.15 }) {
+  return (
+    <g>
+      {[[0, -1], [1, 0], [0, 1], [-1, 0]].map(([dx, dy]) => (
+        <circle key={`${dx}${dy}`} cx={x + dx * r * 1.2} cy={y + dy * r * 1.2} r={r} fill={color} />
+      ))}
+      <circle cx={x} cy={y} r={r * 0.6} fill={CRUDO} />
+    </g>
+  );
+}
+
+function Estampado({ id, tipo, color }) {
+  const oscuro = mezclar(color, '#3a1f2e', 0.38);
+  const medio = mezclar(color, '#b8405e', 0.35);
+
   if (tipo === 'rayas') {
     return (
-      <pattern id={id} width="12" height="12" patternUnits="userSpaceOnUse">
-        <rect width="12" height="12" fill={color} />
-        <rect width="4.5" height="12" fill={CREMA} opacity=".9" />
-        <rect x="8" width="1" height="12" fill={CREMA} opacity=".45" />
+      <pattern id={id} width="26" height="16" patternUnits="userSpaceOnUse">
+        <rect width="26" height="16" fill={color} />
+        <rect x="6" width="14" height="16" fill={CRUDO} />
+        <path d="M6.6 0 V16 M19.4 0 V16" stroke={oscuro} strokeWidth=".7" />
+        <path d="M13 0 Q16 4 13 8 Q10 12 13 16" fill="none" stroke={VERDE_HOJA} strokeWidth=".8" />
+        <ellipse cx="15.2" cy="4.5" rx="1.8" ry=".9" fill={VERDE_HOJA} />
+        <ellipse cx="10.8" cy="12" rx="1.8" ry=".9" fill={VERDE_HOJA} />
+        <Florecita x={11} y={4} color={oscuro} r={1.3} />
+        <Florecita x={15} y={12} color={medio} r={1.3} />
+        <circle cx="3" cy="8" r=".9" fill={CRUDO} opacity=".8" />
+        <circle cx="23" cy="0" r=".9" fill={CRUDO} opacity=".8" />
+        <circle cx="23" cy="16" r=".9" fill={CRUDO} opacity=".8" />
       </pattern>
     );
   }
-  if (tipo === 'flores') {
+
+  if (tipo === 'lunares') {
     return (
-      <pattern id={id} width="40" height="40" patternUnits="userSpaceOnUse">
-        <rect width="40" height="40" fill={color} />
-        <ellipse cx="20" cy="8" rx="3.2" ry="1.4" fill="#7fae86" transform="rotate(-30 20 8)" />
-        <ellipse cx="5" cy="27" rx="3" ry="1.3" fill="#7fae86" transform="rotate(40 5 27)" />
-        <Flor x={10} y={10} r={2.6} petalo={CREMA} centro="#f1c45c" />
-        <Flor x={29} y={28} r={2.2} petalo="#fbe3ea" centro="#f1c45c" />
-        <Flor x={33} y={6} r={1.4} petalo={CREMA} centro="#f1c45c" />
-        <circle cx="14" cy="32" r="1" fill={CREMA} opacity=".8" />
-        <circle cx="24" cy="18" r=".9" fill={CREMA} opacity=".7" />
+      <pattern id={id} width="16" height="16" patternUnits="userSpaceOnUse">
+        <rect width="16" height="16" fill={color} />
+        <ellipse cx="7" cy="6.5" rx="1.6" ry=".8" fill={VERDE_HOJA} transform="rotate(30 7 6.5)" />
+        <ellipse cx="15" cy="14.5" rx="1.6" ry=".8" fill={VERDE_HOJA} transform="rotate(-30 15 14.5)" />
+        <Florecita x={4} y={4} color={ROSA_FLOR} />
+        <Florecita x={12} y={12} color={ROSA_FLOR} />
+        <circle cx="12" cy="4" r=".7" fill={CRUDO} />
+        <circle cx="4" cy="12" r=".7" fill={CRUDO} />
       </pattern>
     );
   }
-  // Plumeti (lunares pequeñitos)
+
+  // flores
+  const fondo = mezclar(color, CRUDO, 0.62);
   return (
-    <pattern id={id} width="11" height="11" patternUnits="userSpaceOnUse">
-      <rect width="11" height="11" fill={color} />
-      <circle cx="2.75" cy="2.75" r="1.5" fill={CREMA} />
-      <circle cx="8.25" cy="8.25" r="1.5" fill={CREMA} />
+    <pattern id={id} width="30" height="36" patternUnits="userSpaceOnUse">
+      <rect width="30" height="36" fill={fondo} />
+      <Clavel x={8} y={7} petalo={medio} interior={oscuro} />
+      <Clavel x={23} y={25} petalo={medio} interior={oscuro} />
+      <Clavel x={23} y={-11} petalo={medio} interior={oscuro} />
+      <circle cx="23" cy="9" r=".8" fill={medio} opacity=".6" />
+      <circle cx="8" cy="27" r=".8" fill={medio} opacity=".6" />
     </pattern>
   );
 }
 
-// Acolchado: rombos con volumen y pespunte.
-function Acolchado({ id, idVolumen }) {
-  return (
-    <>
-      <radialGradient id={idVolumen}>
-        <stop offset="0" stopColor="#fff" stopOpacity=".22" />
-        <stop offset=".7" stopColor="#fff" stopOpacity="0" />
-        <stop offset="1" stopColor="#000" stopOpacity=".12" />
-      </radialGradient>
-      <pattern id={id} width="24" height="24" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-        <rect width="24" height="24" fill={`url(#${idVolumen})`} />
-        <path d="M0 .5 H24 M.5 0 V24" stroke={CREMA} strokeOpacity=".75" strokeWidth="1" strokeDasharray="2.2 1.8" fill="none" />
-      </pattern>
-    </>
-  );
-}
-
-function Lazo({ x, y, s = 1 }) {
-  return (
-    <g transform={`translate(${x} ${y}) scale(${s})`}>
-      <path d="M-2 4 L-12 26 L-6 23 L-3 29 L3 5 Z" fill={CREMA} stroke={CREMA_SOMBRA} strokeWidth="1" />
-      <path d="M2 4 L12 26 L6 23 L3 29 L-3 5 Z" fill={CREMA} stroke={CREMA_SOMBRA} strokeWidth="1" />
-      <path d="M0 0 C-14 -16 -28 -10 -25 1 C-22 12 -10 9 0 0 Z" fill={CREMA} stroke={CREMA_SOMBRA} strokeWidth="1" />
-      <path d="M0 0 C14 -16 28 -10 25 1 C22 12 10 9 0 0 Z" fill={CREMA} stroke={CREMA_SOMBRA} strokeWidth="1" />
-      <path d="M-6 -1 C-12 -6 -18 -6 -20 -1" fill="none" stroke={CREMA_SOMBRA} strokeWidth="1.2" strokeLinecap="round" />
-      <path d="M6 -1 C12 -6 18 -6 20 -1" fill="none" stroke={CREMA_SOMBRA} strokeWidth="1.2" strokeLinecap="round" />
-      <ellipse cx="0" cy="1" rx="5.5" ry="5" fill={CREMA} stroke={CREMA_SOMBRA} strokeWidth="1" />
-    </g>
-  );
-}
-
-// Parche bordado con un nenúfar.
-function Parche({ x, y }) {
-  return (
-    <g transform={`translate(${x} ${y})`}>
-      <ellipse rx="17" ry="11" fill={CREMA} stroke={CREMA_SOMBRA} strokeWidth="1" />
-      <ellipse rx="14" ry="8.5" fill="none" stroke="#7fae86" strokeWidth=".8" strokeDasharray="1.6 1.4" />
-      <path d="M-8 3 a8 4 0 1 0 16 0 a8 4 0 1 0 -16 0" fill="#7fae86" />
-      <path d="M0 3 L6 0" stroke={CREMA} strokeWidth="1.2" />
-      <circle cx="-2" cy="-1.5" r="2.2" fill="#f2a7b8" />
-      <circle cx="1.5" cy="-2.5" r="2" fill="#f7c3cf" />
-    </g>
-  );
-}
-
-const NECESER = 'M34 64 Q34 50 50 50 H190 Q206 50 206 64 L214 146 Q216 164 196 164 H44 Q24 164 26 146 Z';
-const BOLSA = 'M42 88 H198 L210 192 Q212 212 192 212 H48 Q28 212 30 192 Z';
-const BOLSILLO = 'M66 132 H174 L178 184 Q179 196 167 196 H73 Q61 196 62 184 Z';
+// Formas
+const NECESER = 'M42 42 Q40 20 64 20 H176 Q200 20 198 42 L203 126 Q205 150 180 150 H60 Q35 150 37 126 Z';
+const BOLSA = 'M36 82 H204 L214 196 Q216 216 194 216 H46 Q24 216 26 196 Z';
+const BOLSILLO = 'M60 126 H180 L183 186 Q184 198 172 198 H68 Q56 198 57 186 Z';
 
 export default function ProductoArte({ producto, ...props }) {
   const uid = useId().replace(/[^a-zA-Z0-9]/g, '');
-  const ids = {
-    tela: `tela${uid}`,
-    acolchado: `acol${uid}`,
-    volumen: `vol${uid}`,
-    luz: `luz${uid}`,
-    brillo: `bri${uid}`,
-    clip: `clip${uid}`,
-    clipBolsillo: `clipb${uid}`,
-  };
+  const id = (n) => `${n}${uid}`;
   const color = producto.color || '#9fd0ef';
   const esBolsa = producto.categoria?.toLowerCase().includes('bolsa');
+  const forma = esBolsa ? BOLSA : NECESER;
 
   const defs = (
     <defs>
-      <Tela id={ids.tela} tipo={producto.estampado} color={color} />
-      <Acolchado id={ids.acolchado} idVolumen={ids.volumen} />
-      <linearGradient id={ids.luz} x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stopColor="#fff" stopOpacity=".3" />
-        <stop offset=".45" stopColor="#fff" stopOpacity="0" />
-        <stop offset="1" stopColor="#24404f" stopOpacity=".22" />
+      <Estampado id={id('tela')} tipo={producto.estampado} color={color} />
+      {/* ribete de rayitas verdes */}
+      <pattern id={id('ribete')} width="4" height="4" patternUnits="userSpaceOnUse">
+        <rect width="4" height="4" fill="#ffffff" />
+        <rect width="2" height="4" fill={VERDE_RIBETE} />
+      </pattern>
+      {/* acolchado en canales verticales */}
+      <linearGradient id={id('canalLuz')} x1="0" x2="1">
+        <stop offset="0" stopColor="#000" stopOpacity=".24" />
+        <stop offset=".4" stopColor="#fff" stopOpacity=".26" />
+        <stop offset=".7" stopColor="#fff" stopOpacity="0" />
+        <stop offset="1" stopColor="#000" stopOpacity=".2" />
       </linearGradient>
-      <radialGradient id={ids.brillo} cx=".28" cy=".22" r=".55">
-        <stop offset="0" stopColor="#fff" stopOpacity=".35" />
-        <stop offset="1" stopColor="#fff" stopOpacity="0" />
-      </radialGradient>
-      <clipPath id={ids.clip}><path d={esBolsa ? BOLSA : NECESER} /></clipPath>
-      <clipPath id={ids.clipBolsillo}><path d={BOLSILLO} /></clipPath>
+      <pattern id={id('canal')} width="9" height="10" patternUnits="userSpaceOnUse">
+        <rect width="9" height="10" fill={`url(#${id('canalLuz')})`} />
+        <path d="M.4 0 V10" stroke="#fff" strokeOpacity=".55" strokeWidth=".6" strokeDasharray="1.6 1.2" />
+      </pattern>
+      {/* volumen general: bordes y base más oscuros */}
+      <linearGradient id={id('vol')} x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stopColor="#fff" stopOpacity=".3" />
+        <stop offset=".4" stopColor="#fff" stopOpacity="0" />
+        <stop offset="1" stopColor="#2b1d24" stopOpacity=".3" />
+      </linearGradient>
+      <linearGradient id={id('lados')} x1="0" x2="1">
+        <stop offset="0" stopColor="#2b1d24" stopOpacity=".34" />
+        <stop offset=".16" stopColor="#2b1d24" stopOpacity="0" />
+        <stop offset=".84" stopColor="#2b1d24" stopOpacity="0" />
+        <stop offset="1" stopColor="#2b1d24" stopOpacity=".34" />
+      </linearGradient>
+      <clipPath id={id('clip')}><path d={forma} /></clipPath>
+      <clipPath id={id('clipB')}><path d={BOLSILLO} /></clipPath>
     </defs>
   );
 
-  // Tela + acolchado + luces, recortado a una forma.
-  const Cuerpo = ({ d, clip, acolchar = true }) => (
+  const Tela = ({ d, clip }) => (
     <>
-      <path d={d} fill={`url(#${ids.tela})`} />
+      <path d={d} fill={`url(#${id('tela')})`} />
       <g clipPath={`url(#${clip})`}>
-        {acolchar && <rect width="240" height="240" fill={`url(#${ids.acolchado})`} />}
-        <rect width="240" height="240" fill={`url(#${ids.luz})`} />
-        <rect width="240" height="240" fill={`url(#${ids.brillo})`} />
+        <rect width="240" height="240" fill={`url(#${id('canal')})`} />
+        <rect width="240" height="240" fill={`url(#${id('vol')})`} />
+        <rect width="240" height="240" fill={`url(#${id('lados')})`} />
       </g>
-      {/* vivo (ribete) */}
-      <path d={d} fill="none" stroke={CREMA} strokeWidth="5" strokeLinejoin="round" />
-      <path d={d} fill="none" stroke={CREMA_SOMBRA} strokeWidth="1" strokeLinejoin="round" transform="translate(0 1.5)" opacity=".6" />
+      <path d={d} fill="none" stroke={`url(#${id('ribete')})`} strokeWidth="3" strokeLinejoin="round" />
     </>
+  );
+
+  // Cremallera con ribete de rayitas a ambos lados.
+  const Cremallera = ({ x1, x2, y }) => (
+    <g>
+      <rect x={x1} y={y - 9} width={x2 - x1} height="5" fill={`url(#${id('ribete')})`} />
+      <rect x={x1} y={y + 4} width={x2 - x1} height="5" fill={`url(#${id('ribete')})`} />
+      <rect x={x1} y={y - 4} width={x2 - x1} height="8" fill="#ffffff" />
+      <path d={`M${x1 + 3} ${y} H${x2 - 3}`} stroke="#d9d4cc" strokeWidth="2.4" strokeDasharray="1.2 1" />
+      <rect x={x2 - 22} y={y - 3} width="9" height="6" rx="1.5" fill="#c9c4bb" />
+      <rect x={x2 - 14} y={y - 1.6} width="9" height="3.2" rx="1.6" fill="#b5afa5" />
+    </g>
   );
 
   if (esBolsa) {
     return (
-      <svg viewBox="0 0 240 230" role="img" aria-label={producto.nombre} {...props}>
+      <svg viewBox="0 0 240 232" role="img" aria-label={producto.nombre} {...props}>
         {defs}
-        <ellipse cx="120" cy="218" rx="96" ry="7" fill="#24404f" opacity=".13" />
-        {/* asas de tela con vivo */}
-        {['M74 90 C74 34 110 34 110 90', 'M130 90 C130 34 166 34 166 90'].map((d) => (
+        <ellipse cx="120" cy="222" rx="96" ry="6" fill="#24404f" opacity=".13" />
+        {/* asas acolchadas con ribete */}
+        {['M70 84 C70 30 106 30 106 84', 'M134 84 C134 30 170 30 170 84'].map((d) => (
           <g key={d}>
-            <path d={d} fill="none" stroke={CREMA} strokeWidth="13" strokeLinecap="round" />
-            <path d={d} fill="none" stroke={`url(#${ids.tela})`} strokeWidth="9" strokeLinecap="round" />
+            <path d={d} fill="none" stroke={VERDE_RIBETE} strokeWidth="13" strokeLinecap="round" />
+            <path d={d} fill="none" stroke={`url(#${id('tela')})`} strokeWidth="9" strokeLinecap="round" />
           </g>
         ))}
-        {/* mosquetones dorados */}
-        {[92, 148].map((cx) => (
+        {/* mosquetones */}
+        {[88, 152].map((cx) => (
           <g key={cx}>
-            <rect x={cx - 6} y="20" width="12" height="20" rx="6" fill="none" stroke={ORO} strokeWidth="3.4" />
-            <path d={`M${cx + 4} 24 v12`} stroke={ORO_LUZ} strokeWidth="1.6" strokeLinecap="round" />
-            <rect x={cx - 4} y="38" width="8" height="5" rx="1.5" fill={ORO} />
+            <rect x={cx - 6} y="16" width="12" height="20" rx="6" fill="none" stroke="#c9a25a" strokeWidth="3.2" />
+            <path d={`M${cx + 4} 20 v12`} stroke="#ecd59b" strokeWidth="1.4" strokeLinecap="round" />
           </g>
         ))}
-        <Cuerpo d={BOLSA} clip={ids.clip} />
-        {/* bolsillo delantero liso con vivo */}
-        <Cuerpo d={BOLSILLO} clip={ids.clipBolsillo} acolchar={false} />
-        <Lazo x={120} y={134} s={0.95} />
-        <Parche x={176} y={112} />
+        <Tela d={BOLSA} clip={id('clip')} />
+        {/* vivo de rayitas en la boca de la bolsa */}
+        <rect x="35" y="80" width="170" height="8" rx="2" fill={`url(#${id('ribete')})`} />
+        <Tela d={BOLSILLO} clip={id('clipB')} />
+        <rect x="59" y="124" width="122" height="6" rx="2" fill={`url(#${id('ribete')})`} />
       </svg>
     );
   }
 
   return (
-    <svg viewBox="0 0 240 180" role="img" aria-label={producto.nombre} {...props}>
+    <svg viewBox="0 0 240 166" role="img" aria-label={producto.nombre} {...props}>
       {defs}
-      <ellipse cx="120" cy="170" rx="96" ry="7" fill="#24404f" opacity=".13" />
-      <Cuerpo d={NECESER} clip={ids.clip} />
-      {/* cremallera dorada */}
-      <rect x="44" y="47" width="152" height="8" rx="4" fill={CREMA} />
-      <path d="M48 51 H192" stroke={ORO} strokeWidth="3" strokeDasharray="1.6 1.4" />
-      {/* tirador con lengüeta de tela */}
-      <circle cx="174" cy="55" r="4" fill="none" stroke={ORO} strokeWidth="2.4" />
-      <rect x="168.5" y="58" width="11" height="26" rx="5" fill={`url(#${ids.tela})`} stroke={CREMA} strokeWidth="2" />
-      <circle cx="174" cy="64" r="2" fill={ORO} />
-      <Lazo x={68} y={70} />
-      <Parche x={178} y={138} />
+      <ellipse cx="120" cy="158" rx="98" ry="6" fill="#24404f" opacity=".13" />
+      <Tela d={NECESER} clip={id('clip')} />
+      <Cremallera x1={40} x2={200} y={46} />
     </svg>
   );
 }
