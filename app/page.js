@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import Checklist from '@/components/Checklist';
+import ProductoArte from '@/components/ProductoArte';
 import TarjetaProducto from '@/components/TarjetaProducto';
 import { cargarProductos } from '@/lib/productos';
 
 // Se genera en cada visita para mostrar siempre los productos y precios actuales de Neon.
 export const dynamic = 'force-dynamic';
 
-const FONDOS = ['var(--blue-100)', 'var(--green-100)', '#fdeef1'];
+const NECESER_PORTADA = { id: 'portada', nombre: 'Neceser de flores', categoria: 'Neceseres', color: '#9fd0ef', estampado: 'flores' };
+
+const FONDOS =['var(--blue-100)', 'var(--green-100)', '#fdeef1'];
 
 // Para la home elegimos un neceser y una bolsa de cada estampado, sin repetir.
 function destacados(productos) {
@@ -45,14 +48,13 @@ export default async function Inicio() {
           </div>
 
           <div className="hero-art" aria-hidden="true">
-            <svg viewBox="0 0 420 380">
+            <svg viewBox="0 0 420 410">
               <g className="float d2"><ellipse cx="70" cy="70" rx="44" ry="18" fill="#fff" /><ellipse cx="92" cy="58" rx="26" ry="18" fill="#fff" /></g>
               <g className="float d3"><ellipse cx="350" cy="110" rx="36" ry="14" fill="#fff" /><ellipse cx="366" cy="100" rx="20" ry="14" fill="#fff" /></g>
               <path className="float" d="M330 40 l5 11 12 2 -9 8 2 12 -10 -6 -10 6 2 -12 -9 -8 12 -2z" fill="#f7b9c4" />
               <path className="float d3" d="M50 190 l4 8 9 1 -7 6 2 9 -8 -4 -8 4 2 -9 -7 -6 9 -1z" fill="#9fd0ef" />
               <circle className="float d2" cx="385" cy="230" r="7" fill="#8fd3a7" />
               <circle className="float" cx="30" cy="290" r="5" fill="#f7b9c4" />
-              <ellipse cx="215" cy="352" rx="140" ry="14" fill="#24404f" opacity=".08" />
               <g className="float">
                 <circle cx="168" cy="112" r="34" fill="#8fd3a7" />
                 <circle cx="262" cy="112" r="34" fill="#8fd3a7" />
@@ -68,24 +70,12 @@ export default async function Inicio() {
                 <ellipse cx="160" cy="180" rx="12" ry="7" fill="#f7b9c4" />
                 <ellipse cx="270" cy="180" rx="12" ry="7" fill="#f7b9c4" />
                 <path d="M190 172 Q215 194 240 172" fill="none" stroke="#24404f" strokeWidth="5" strokeLinecap="round" />
-                <ellipse cx="150" cy="210" rx="20" ry="12" fill="#8fd3a7" />
-                <ellipse cx="280" cy="210" rx="20" ry="12" fill="#8fd3a7" />
               </g>
-              <defs>
-                <pattern id="hero-lunares" width="22" height="22" patternUnits="userSpaceOnUse">
-                  <rect width="22" height="22" fill="#9fd0ef" />
-                  <circle cx="5" cy="5" r="3.4" fill="#fff" opacity=".7" />
-                  <circle cx="16" cy="16" r="3.4" fill="#fff" opacity=".7" />
-                </pattern>
-              </defs>
-              <path d="M85 215 Q85 200 100 200 L330 200 Q345 200 345 215 L360 320 Q362 342 340 342 L90 342 Q68 342 70 320 Z" fill="url(#hero-lunares)" />
-              <path d="M85 215 Q85 200 100 200 L330 200 Q345 200 345 215 L348 240 L82 240 Z" fill="#c4e3f6" />
-              <path d="M92 222 H338" stroke="#24404f" strokeWidth="3" strokeDasharray="6 6" strokeLinecap="round" opacity=".5" />
-              <circle cx="320" cy="222" r="9" fill="#fff" stroke="#24404f" strokeWidth="3" />
-              <path d="M320 231 v22" stroke="#24404f" strokeWidth="3" strokeLinecap="round" />
-              <rect x="140" y="262" width="150" height="58" rx="18" fill="#dcf3e3" />
-              <path d="M215 304 c-16 -10 -24 -18 -24 -26 a10 10 0 0 1 24 -4 a10 10 0 0 1 24 4 c0 8 -8 16 -24 26z" fill="#f7b9c4" />
-              <path d="M75 290 q-34 0 -30 -40" fill="none" stroke="#8fd3a7" strokeWidth="10" strokeLinecap="round" />
+              <ProductoArte producto={NECESER_PORTADA} x="40" y="150" width="340" height="255" />
+              <g className="float">
+                <ellipse cx="160" cy="222" rx="20" ry="11" fill="#8fd3a7" />
+                <ellipse cx="270" cy="222" rx="20" ry="11" fill="#8fd3a7" />
+              </g>
             </svg>
           </div>
         </div>

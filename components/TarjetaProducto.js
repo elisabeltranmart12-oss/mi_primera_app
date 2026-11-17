@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import ProductoArte from './ProductoArte';
+import ImagenProducto from './ImagenProducto';
 import { euros } from '@/lib/productos';
 
 export default function TarjetaProducto({ producto, fondo }) {
   return (
     <article className="producto">
-      <div className="producto-arte" style={{ background: fondo }}>
-        <ProductoArte producto={producto} />
+      <div className={`producto-arte${producto.tiene_foto ? ' con-foto' : ''}`} style={{ background: fondo }}>
+        <ImagenProducto producto={producto} />
       </div>
       <div className="producto-info">
         <span className="producto-cat">{producto.categoria}</span>

@@ -1,5 +1,7 @@
-// Crea la tabla "leads" en Neon, donde se guardan los contactos del formulario "Apúntate".
-// Ejecútalo con:  npm run leads
+// Prepara la base de datos de Neon para la web de Nenúfar:
+//  - crea la tabla "leads" (contactos del formulario "Apúntate")
+//  - añade a "productos" las columnas para fotos que usa la zona de jefe
+// Ejecútalo con:  npm run bd
 // Se puede ejecutar varias veces: no borra nada.
 require('dotenv').config();
 const { neon } = require('@neondatabase/serverless');
@@ -24,9 +26,13 @@ async function main() {
       creado_en       TIMESTAMPTZ NOT NULL DEFAULT now()
     )`;
 
+  await sql`ALTER TABLE productos ADD COLUMN IF NOT EXISTS foto TEXT`;
+  await sql`ALTER TABLE productos ADD COLUMN IF NOT EXISTS foto_tipo TEXT`;
+  await sql`ALTER TABLE productos ADD COLUMN IF NOT EXISTS actualizado_en TIMESTAMPTZ DEFAULT now()`;
+
   const [{ total }] = await sql`SELECT count(*)::int AS total FROM leads`;
-  console.log(`✅ Tabla "leads" lista (${total} contactos guardados).`);
-  console.log('   Para verlos, en la consola SQL de Neon: SELECT * FROM leads ORDER BY creado_en DESC;');
+  const [{ productos }] = await sql`SELECT count(*)::int AS productos FROM productos`;
+  console.log(`✅ Base de datos lista: ${productos} productos y ${total} contactos.`);
 }
 
 main().catch((err) => {

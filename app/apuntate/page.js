@@ -4,8 +4,8 @@ import { cargarProductos } from '@/lib/productos';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Apúntate · Ranita',
-  description: 'Apúntate y sé de las primeras en saber cuándo abre Ranita.',
+  title: 'Apúntate · Nenúfar',
+  description: 'Apúntate y sé de las primeras en saber cuándo abre Nenúfar.',
 };
 
 const Tick = () => (
@@ -17,8 +17,8 @@ const Tick = () => (
 export default async function Apuntate({ searchParams }) {
   const { producto } = await searchParams;
   const { productos } = await cargarProductos();
-  const lista = productos.map(({ id, nombre, categoria, precio, color, slug, estampado }) => ({
-    id, nombre, categoria, precio, color, slug, estampado,
+  const lista = productos.map(({ id, nombre, categoria, precio, color, slug, estampado, tiene_foto, version }) => ({
+    id, nombre, categoria, precio, color, slug, estampado, tiene_foto, version,
   }));
   const inicial = lista.some((p) => p.slug === producto) ? producto : '';
 
@@ -28,7 +28,7 @@ export default async function Apuntate({ searchParams }) {
         <section className="intro">
           <img className="frog" src="/logo.svg" alt="" />
           <h1>¡Sé de las primeras en saber cuándo abrimos!</h1>
-          <p>Déjanos tus datos y te contamos todas las novedades de la apertura de Ranita antes que a nadie.</p>
+          <p>Déjanos tus datos y te contamos todas las novedades de la apertura de Nenúfar antes que a nadie.</p>
           <ul className="perks">
             <li><Tick />Invitación a la inauguración</li>
             <li><Tick />Descuento de bienvenida</li>

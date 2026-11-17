@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start",
     "productos": "node crear-productos.js",
-    "leads": "node crear-leads.js"
+    "bd": "node preparar-bd.js"
   },
   "keywords": [],
   "author": "",

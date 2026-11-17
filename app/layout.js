@@ -7,7 +7,7 @@ const fredoka = Fredoka({ subsets: ['latin'], weight: ['500', '600'], variable: 
 const nunito = Nunito({ subsets: ['latin'], weight: ['400', '600', '700', '800'], variable: '--font-nunito' });
 
 export const metadata = {
-  title: 'Ranita · Neceseres y bolsas para mamás',
+  title: 'Nenúfar · Neceseres y bolsas para mamás',
   description:
     'Neceseres y bolsas de carro de tela estampada para mamás primerizas. Muy pronto abrimos nuestra tienda.',
 };
@@ -23,16 +23,17 @@ export default function RootLayout({ children }) {
             <div className="footer-grid">
               <Link className="brand" href="/">
                 <img src="/logo.svg" alt="" />
-                Ranita
+                Nenúfar
               </Link>
               <nav aria-label="Pie de página">
                 <Link href="/tienda">Tienda</Link>
                 <Link href="/#para-ti">Para ti</Link>
                 <Link href="/apuntate">Apúntate</Link>
+                <Link href="/jefe">Zona jefe</Link>
               </nav>
             </div>
             <p className="copy">
-              © {new Date().getFullYear()} Ranita · Neceseres y bolsas de tela estampada para mamás. Hecho con mucho cariño.
+              © {new Date().getFullYear()} Nenúfar · Neceseres y bolsas de tela estampada para mamás. Hecho con mucho cariño.
             </p>
           </div>
         </footer>

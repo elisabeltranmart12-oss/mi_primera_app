@@ -4,7 +4,7 @@ import { agruparPorCategoria, cargarProductos, euros } from '@/lib/productos';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: 'Tienda · Ranita',
+  title: 'Tienda · Nenúfar',
   description: 'Neceseres (25 €) y bolsas de carro (50 €) de tela estampada.',
 };
 

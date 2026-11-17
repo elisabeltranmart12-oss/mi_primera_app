@@ -1,6 +1,6 @@
-# Ranita · Neceseres y bolsas para mamás
+# Nenúfar · Neceseres y bolsas para mamás
 
-App Next.js de la tienda Ranita, con los productos y los contactos guardados en Neon (Postgres) y desplegada en Vercel.
+App Next.js de la tienda Nenúfar, con los productos y los contactos guardados en Neon (Postgres) y desplegada en Vercel.
 
 ## Páginas
 

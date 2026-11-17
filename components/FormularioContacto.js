@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
-import ProductoArte from './ProductoArte';
+import ImagenProducto from './ImagenProducto';
 
 const INTERESES = [
   { valor: 'neceseres', texto: 'Neceseres' },
@@ -104,7 +104,7 @@ export default function FormularioContacto({ productos, productoInicial }) {
 
       {elegido && (
         <div className="reserva">
-          <ProductoArte producto={elegido} />
+          <ImagenProducto producto={elegido} />
           <div>
             <strong>{elegido.nombre} · {euros.format(elegido.precio)}</strong>
             <span>Te lo reservamos sin compromiso para el día de la apertura.</span>

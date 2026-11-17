@@ -1,4 +1,6 @@
 // Crea la tabla "productos" en Neon y añade los productos de la tienda.
+// ⚠️ Si ya editas los productos desde la "Zona jefe" de la web, NO vuelvas a ejecutar este script:
+// sobrescribiría los precios y descripciones de estos 6 productos.
 // Ejecútalo con:  npm run productos
 // Se puede ejecutar varias veces: no duplica productos.
 require('dotenv').config();

@@ -1,24 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 110" role="img" aria-label="Ranita">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 118" role="img" aria-label="Nenúfar">
+  <!-- hoja de nenúfar -->
+  <path d="M64 98 L84 88 A58 18 0 1 1 64 86 Z" fill="#5fae7e"/>
+  <path d="M64 98 L84 88" stroke="#4a9468" stroke-width="2" stroke-linecap="round"/>
+  <path d="M30 100 Q46 96 58 98 M96 102 Q86 98 74 100" stroke="#4a9468" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".7"/>
+  <!-- flor de nenúfar -->
+  <g transform="translate(106 92)">
+    <ellipse cx="-6" cy="0" rx="7" ry="3.6" fill="#f7b9c4" transform="rotate(-25)"/>
+    <ellipse cx="6" cy="0" rx="7" ry="3.6" fill="#f7b9c4" transform="rotate(25)"/>
+    <ellipse cx="0" cy="-4" rx="3.6" ry="7.5" fill="#fbd3dc"/>
+    <circle cx="0" cy="-1" r="2.2" fill="#f2c14e"/>
+  </g>
   <!-- ojos saltones -->
-  <circle cx="34" cy="30" r="24" fill="#8fd3a7"/>
-  <circle cx="86" cy="30" r="24" fill="#8fd3a7"/>
-  <circle cx="34" cy="29" r="17" fill="#ffffff"/>
-  <circle cx="86" cy="29" r="17" fill="#ffffff"/>
-  <circle cx="37" cy="31" r="9.5" fill="#24404f"/>
-  <circle cx="83" cy="31" r="9.5" fill="#24404f"/>
-  <circle cx="40.5" cy="27" r="3.4" fill="#ffffff"/>
-  <circle cx="86.5" cy="27" r="3.4" fill="#ffffff"/>
-  <circle cx="34" cy="34" r="1.6" fill="#ffffff"/>
-  <circle cx="80" cy="34" r="1.6" fill="#ffffff"/>
+  <circle cx="38" cy="26" r="22" fill="#8fd3a7"/>
+  <circle cx="86" cy="26" r="22" fill="#8fd3a7"/>
+  <circle cx="38" cy="25" r="15.5" fill="#ffffff"/>
+  <circle cx="86" cy="25" r="15.5" fill="#ffffff"/>
+  <circle cx="41" cy="27" r="8.8" fill="#24404f"/>
+  <circle cx="83" cy="27" r="8.8" fill="#24404f"/>
+  <circle cx="44" cy="23" r="3.2" fill="#ffffff"/>
+  <circle cx="86" cy="23" r="3.2" fill="#ffffff"/>
   <!-- cabeza -->
-  <ellipse cx="60" cy="70" rx="52" ry="36" fill="#8fd3a7"/>
-  <ellipse cx="60" cy="80" rx="36" ry="20" fill="#c6ecd2"/>
-  <!-- mofletes -->
-  <ellipse cx="25" cy="74" rx="8" ry="5" fill="#f7b9c4" opacity=".85"/>
-  <ellipse cx="95" cy="74" rx="8" ry="5" fill="#f7b9c4" opacity=".85"/>
-  <!-- sonrisa -->
-  <path d="M44 70 Q60 84 76 70" fill="none" stroke="#24404f" stroke-width="3.6" stroke-linecap="round"/>
-  <!-- naricita -->
-  <circle cx="54" cy="58" r="1.8" fill="#24404f"/>
-  <circle cx="66" cy="58" r="1.8" fill="#24404f"/>
+  <ellipse cx="62" cy="62" rx="48" ry="32" fill="#8fd3a7"/>
+  <ellipse cx="62" cy="71" rx="33" ry="18" fill="#c6ecd2"/>
+  <ellipse cx="29" cy="66" rx="7.5" ry="4.6" fill="#f7b9c4" opacity=".9"/>
+  <ellipse cx="95" cy="66" rx="7.5" ry="4.6" fill="#f7b9c4" opacity=".9"/>
+  <path d="M47 62 Q62 75 77 62" fill="none" stroke="#24404f" stroke-width="3.4" stroke-linecap="round"/>
+  <circle cx="57" cy="51" r="1.7" fill="#24404f"/>
+  <circle cx="67" cy="51" r="1.7" fill="#24404f"/>
+  <!-- patitas -->
+  <ellipse cx="34" cy="90" rx="11" ry="5" fill="#8fd3a7"/>
+  <ellipse cx="90" cy="90" rx="11" ry="5" fill="#8fd3a7"/>
 </svg>

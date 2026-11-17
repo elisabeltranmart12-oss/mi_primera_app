@@ -20,7 +20,7 @@ export default function Cabecera() {
       <div className="container nav">
         <Link className="brand" href="/" onClick={cerrar}>
           <img src="/logo.svg" alt="" />
-          Ranita
+          Nenúfar
         </Link>
         <button
           className="menu-toggle"

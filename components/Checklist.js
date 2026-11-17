@@ -11,7 +11,7 @@ const ITEMS = [
   'Neceser con tus básicos de aseo',
   'Documentación y cargador del móvil',
 ];
-const CLAVE = 'ranita-checklist';
+const CLAVE = 'nenufar-checklist';
 
 export default function Checklist() {
   const [marcados, setMarcados] = useState(() => ITEMS.map(() => false));
