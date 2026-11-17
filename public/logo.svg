@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 110" role="img" aria-label="Ranita">
+  <!-- ojos saltones -->
+  <circle cx="34" cy="30" r="24" fill="#8fd3a7"/>
+  <circle cx="86" cy="30" r="24" fill="#8fd3a7"/>
+  <circle cx="34" cy="29" r="17" fill="#ffffff"/>
+  <circle cx="86" cy="29" r="17" fill="#ffffff"/>
+  <circle cx="37" cy="31" r="9.5" fill="#24404f"/>
+  <circle cx="83" cy="31" r="9.5" fill="#24404f"/>
+  <circle cx="40.5" cy="27" r="3.4" fill="#ffffff"/>
+  <circle cx="86.5" cy="27" r="3.4" fill="#ffffff"/>
+  <circle cx="34" cy="34" r="1.6" fill="#ffffff"/>
+  <circle cx="80" cy="34" r="1.6" fill="#ffffff"/>
+  <!-- cabeza -->
+  <ellipse cx="60" cy="70" rx="52" ry="36" fill="#8fd3a7"/>
+  <ellipse cx="60" cy="80" rx="36" ry="20" fill="#c6ecd2"/>
+  <!-- mofletes -->
+  <ellipse cx="25" cy="74" rx="8" ry="5" fill="#f7b9c4" opacity=".85"/>
+  <ellipse cx="95" cy="74" rx="8" ry="5" fill="#f7b9c4" opacity=".85"/>
+  <!-- sonrisa -->
+  <path d="M44 70 Q60 84 76 70" fill="none" stroke="#24404f" stroke-width="3.6" stroke-linecap="round"/>
+  <!-- naricita -->
+  <circle cx="54" cy="58" r="1.8" fill="#24404f"/>
+  <circle cx="66" cy="58" r="1.8" fill="#24404f"/>
+</svg>

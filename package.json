@@ -8,7 +8,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "productos": "node crear-productos.js"
+    "productos": "node crear-productos.js",
+    "leads": "node crear-leads.js"
   },
   "keywords": [],
   "author": "",
