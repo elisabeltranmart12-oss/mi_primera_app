@@ -7,6 +7,7 @@ App Next.js de la tienda Nenúfar, con los productos y los contactos guardados e
 - `/` — home con productos destacados
 - `/tienda` — neceseres (25 €) y bolsas de carro (50 €), leídos de la tabla `productos`
 - `/apuntate` — formulario de contacto y reserva; guarda en la tabla `leads`
+- `/jefe` — back office con clave (`ADMIN_PASSWORD`): resumen, contactos (estado, notas, exportar a Excel) y productos (fotos, precios, descripciones)
 - `/api/leads` — recibe el formulario
 
 ## Comandos
@@ -14,7 +15,7 @@ App Next.js de la tienda Nenúfar, con los productos y los contactos guardados e
 ```bash
 npm run dev        # vista previa en http://localhost:3000
 npm run productos  # crea/actualiza la tabla productos (edita la lista en crear-productos.js)
-npm run leads      # crea la tabla leads
+npm run bd         # prepara la base de datos (tabla leads y columnas nuevas)
 npm run probar     # comprueba la conexión con Neon
 ```
 

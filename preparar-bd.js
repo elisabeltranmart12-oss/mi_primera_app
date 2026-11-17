@@ -1,6 +1,7 @@
 // Prepara la base de datos de Neon para la web de Nenúfar:
 //  - crea la tabla "leads" (contactos del formulario "Apúntate")
 //  - añade a "productos" las columnas para fotos que usa la zona de jefe
+//  - añade a "leads" el estado (pendiente, contactado, vendido...) y las notas del back office
 // Ejecútalo con:  npm run bd
 // Se puede ejecutar varias veces: no borra nada.
 require('dotenv').config();
@@ -29,6 +30,10 @@ async function main() {
   await sql`ALTER TABLE productos ADD COLUMN IF NOT EXISTS foto TEXT`;
   await sql`ALTER TABLE productos ADD COLUMN IF NOT EXISTS foto_tipo TEXT`;
   await sql`ALTER TABLE productos ADD COLUMN IF NOT EXISTS actualizado_en TIMESTAMPTZ DEFAULT now()`;
+  await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS estado TEXT NOT NULL DEFAULT 'pendiente'`;
+  await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS notas TEXT`;
+  await sql`ALTER TABLE leads ADD COLUMN IF NOT EXISTS actualizado_en TIMESTAMPTZ`;
+
 
   const [{ total }] = await sql`SELECT count(*)::int AS total FROM leads`;
   const [{ productos }] = await sql`SELECT count(*)::int AS productos FROM productos`;
