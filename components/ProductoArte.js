@@ -24,7 +24,7 @@ function mezclar(a, b, t) {
 function Clavel({ x, y, petalo, interior }) {
   const petalos = [0, 60, 120, 180, 240, 300].map((a) => {
     const r = (a * Math.PI) / 180;
-    return <circle key={a} cx={x + 2.5 * Math.cos(r)} cy={y + 2.5 * Math.sin(r)} r="2.3" fill={petalo} />;
+    return <circle key={a} cx={(x + 2.5 * Math.cos(r)).toFixed(2)} cy={(y + 2.5 * Math.sin(r)).toFixed(2)} r="2.3" fill={petalo} />;
   });
   return (
     <g>

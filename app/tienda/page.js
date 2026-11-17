@@ -1,3 +1,4 @@
+import AgenteVoz from '@/components/AgenteVoz';
 import TarjetaProducto from '@/components/TarjetaProducto';
 import { agruparPorCategoria, cargarProductos, euros } from '@/lib/productos';
 
@@ -16,6 +17,7 @@ export default async function Tienda() {
 
   return (
     <>
+      <AgenteVoz />
       <section className="page-head">
         <div className="container">
           <span className="eyebrow">Tienda</span>

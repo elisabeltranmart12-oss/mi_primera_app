@@ -1,3 +1,4 @@
+import AgenteVoz from '@/components/AgenteVoz';
 import FormularioContacto from '@/components/FormularioContacto';
 import { cargarProductos } from '@/lib/productos';
 
@@ -24,6 +25,7 @@ export default async function Apuntate({ searchParams }) {
 
   return (
     <div className="page">
+      <AgenteVoz />
       <div className="container form-grid">
         <section className="intro">
           <img className="frog" src="/logo.svg" alt="" />
